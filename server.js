@@ -34,12 +34,12 @@ function serveStatic(response, cache, absPath) {
 }
 
 var server = http.createServer(function(request, response) {
-	var filePath = '';
+	var filePath = 'public' + request.url;
 	
 	if(request.url == '/') {
-		filePath = 'public/index.html';
-	}
-	
+		filePath += 'index.html';
+    }
+                               
 	absPath = './' + filePath;
 	
 	serveStatic(response, cache, absPath);
@@ -48,3 +48,6 @@ var server = http.createServer(function(request, response) {
 server.listen(3000, function(){
 	console.log('Server listening on port 3000');
 });
+
+var chatServer = require('./lib/chat_server');
+chatServer.listen(server);
